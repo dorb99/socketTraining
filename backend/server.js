@@ -9,11 +9,12 @@ const dotenv = require("dotenv");
 const userRouter = require("./router/userRouter");
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 const server = http.createServer(app);
 
 dotenv.config({ path: "./.env" });
 const DB = process.env.MONGODB_URL;
+const URL = process.env.SERVER_URL;
 
 mongoose
   .connect(DB)
@@ -22,10 +23,9 @@ mongoose
   })
   .catch((err) => console.log("problem: " + err));
 
-
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: URL,
   },
 });
 
@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/api/user", userRouter)
+app.use("/api/user", userRouter);
 
 server.listen(3000, () => {
   log("server listening on 3000");

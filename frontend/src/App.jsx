@@ -3,7 +3,7 @@ import "./App.css";
 import { io } from "socket.io-client";
 import createUser from "./userActions/createUser";
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("https://render.com/docs/node-version");
 
 function App() {
   const [username, setUsername] = useState("");
